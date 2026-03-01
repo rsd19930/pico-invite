@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Join my Pico Chess Game!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #121212; color: white; font-family: sans-serif; text-align: center; padding-top: 20vh;">
+  
+  <h2>Opening Pico Chess...</h2>
+  <p>If the game doesn't open automatically, tap the button below:</p>
+  
+  <button id="openApp" style="background-color: #2e7d32; color: white; padding: 15px 32px; font-size: 16px; border: none; border-radius: 8px; margin-top: 20px;">
+    Open Game
+  </button>
+
+  <script>
+    // 1. Grab the URL parameters your app will send
+    const params = new URLSearchParams(window.location.search);
+    const room = params.get('room');
+    const ref = params.get('ref');
+
+    if (room && ref) {
+      // 2. Build your native Android app link
+      const appLink = `picochess://room/${room}?ref=${ref}`;
+
+      // 3. Attach it to the fallback button
+      document.getElementById('openApp').onclick = function() {
+        window.location.href = appLink;
+      };
+
+      // 4. Automatically force the redirect right now
+      window.location.replace(appLink);
+    } else {
+      document.querySelector('h2').innerText = "Invalid Invite Link!";
+      document.getElementById('openApp').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
